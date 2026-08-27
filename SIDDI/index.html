@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishun × Sakshu — Happy Raksha Bandhan 💗</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <!-- Floating Canvas for Ambient Petals & Sparkles -->
+    <canvas id="ambient-canvas"></canvas>
+
+    <!-- Floating Control Controls (Music & Theme) -->
+    <div class="floating-controls">
+        <button id="music-btn" class="control-btn" aria-label="Toggle Music">
+            <span class="btn-icon">🎵</span>
+            <span class="btn-text">Music OFF</span>
+        </button>
+        <button id="theme-btn" class="control-btn" aria-label="Toggle Theme">
+            <span class="btn-icon">🌙</span>
+        </button>
+    </div>
+
+    <!-- Hidden Audio Element -->
+    <audio id="bg-music" loop preload="none">
+        <!-- Add your audio file URL here -->
+        <source src="Ek Main Aur Ekk Tu -  Slowed  Reverb  Lyrics  Use Headphones.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 1. LOADING SCREEN -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="rakhi-symbol">🪷</div>
+            <p class="loading-subtext">A little surprise for my favourite sisters...</p>
+            <h1 class="loading-title">Vishun × Sakshu</h1>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="loading-heart">🩷</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main id="main-content" class="hidden">
+
+        <!-- 2. HERO SECTION -->
+        <section class="hero-section" id="hero">
+            <div class="hero-card glass-panel">
+                <span class="badge">Festive Memory Book</span>
+                <h1 class="hero-title">Happy Raksha Bandhan 💗</h1>
+                <h2 class="hero-subtitle">To my bestest sisters — Vishun Di & Sakshu Di 🫶</h2>
+                <p class="hero-quote">
+                    "Some bonds are made by family…<br>
+                    and some become special because of the memories we create together."
+                </p>
+                <button id="open-memories-btn" class="btn btn-primary">
+                    <span>Open Our Memories ✨</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. MEMORY GALLERY SECTION -->
+<section class="section gallery-section" id="gallery">
+    <div class="section-header">
+        <h2 class="section-title">Snapshot Memories</h2>
+        <p class="section-desc">Four frames holding countless smiles and endless chaos.</p>
+    </div>
+    
+    <div class="gallery-grid">
+        <!-- Frame 1: Standard local asset path -->
+        <div class="photo-frame scroll-reveal" data-index="0">
+            <img src="assets/memory1.jpg" alt="Memory with Vishun & Sakshu 1" class="gallery-img">
+            <div class="photo-overlay">
+                <span>Click to View ✨</span>
+            </div>
+        </div>
+
+        <!-- Frame 2: Uploaded childhood memory -->
+        <div class="photo-frame scroll-reveal" data-index="1">
+            <img src="assets/memory2.jpg" alt="Memory with Vishun & Sakshu 2" class="gallery-img">
+            <div class="photo-overlay">
+                <span>Click to View ✨</span>
+            </div>
+        </div>
+
+        <!-- Frame 3: Uploaded fun selfie memory -->
+        <div class="photo-frame scroll-reveal" data-index="2">
+            <img src="assets/memory3.jpg" alt="Memory with Vishun & Sakshu 3" class="gallery-img">
+            <div class="photo-overlay">
+                <span>Click to View ✨</span>
+            </div>
+        </div>
+
+        <!-- Frame 4: Uploaded red outfit outing memory -->
+        <div class="photo-frame scroll-reveal" data-index="3">
+            <img src="assets/memory4.jpg" alt="Memory with Vishun & Sakshu 4" class="gallery-img">
+            <div class="photo-overlay">
+                <span>Click to View ✨</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- 4. LIGHTBOX & SLIDESHOW -->
+        <div id="lightbox" class="lightbox">
+            <span class="lightbox-close">&times;</span>
+            <button class="lightbox-nav prev" id="lightbox-prev">&#10094;</button>
+            <div class="lightbox-content">
+                <img id="lightbox-img" src="" alt="Enlarged Memory">
+            </div>
+            <button class="lightbox-nav next" id="lightbox-next">&#10095;</button>
+        </div>
+
+        <!-- 5. HANDWRITTEN LETTER SECTION -->
+        <section class="section letter-section" id="letter">
+            <div class="letter-card glass-panel scroll-reveal">
+                <h2 class="letter-title">A Little Something From My Heart 💗</h2>
+                <div class="letter-paper">
+                    <p id="typewriter-text" class="typewriter-body"></p>
+                </div>
+                <button id="restart-typing-btn" class="btn btn-secondary">
+                    <span>Read It Again 💌</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 6. EMOTIONAL QUOTES SECTION -->
+        <section class="section quotes-section">
+            <div class="quotes-grid">
+                <div class="quote-card glass-panel scroll-reveal">
+                    <span class="quote-icon">🌸</span>
+                    <p>"Cousins by relation, sisters by heart. 🩷"</p>
+                </div>
+                <div class="quote-card glass-panel scroll-reveal">
+                    <span class="quote-icon">🕰️</span>
+                    <p>"Childhood passed, but the memories stayed."</p>
+                </div>
+                <div class="quote-card glass-panel scroll-reveal">
+                    <span class="quote-icon">✈️</span>
+                    <p>"One day we'll travel together and laugh about all this."</p>
+                </div>
+                <div class="quote-card glass-panel scroll-reveal">
+                    <span class="quote-icon">🤞</span>
+                    <p>"Nani ka naam roshan karna hai. 🫶"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. SISTER BOND METER -->
+        <section class="section bond-section scroll-reveal">
+            <div class="bond-card glass-panel">
+                <h2 class="section-title">Sister Bond Level</h2>
+                <div class="meter-display">
+                    <span class="meter-score">∞ / 1000 ❤️</span>
+                    <div class="meter-bar-container">
+                        <div class="meter-fill" id="meter-fill"></div>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-label">Chaos</span>
+                        <span class="stat-val">100% 😂</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Support</span>
+                        <span class="stat-val">100% 🫶</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Memories</span>
+                        <span class="stat-val">∞ 🥹</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Nani's Name</span>
+                        <span class="stat-val">MUST MAKE PROUD 🤞</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. FUN MEMORY GENERATOR -->
+        <section class="section generator-section scroll-reveal">
+            <div class="generator-card glass-panel">
+                <h2 class="section-title">Random Memory Box 🎲</h2>
+                <div class="memory-output-box">
+                    <p id="memory-output">Click the button below to draw a random memory!</p>
+                </div>
+                <button id="generate-memory-btn" class="btn btn-accent">
+                    <span>Generate Random Memory ✨</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 9. SECRET SURPRISE PIN SECTION -->
+        <section class="section secret-section scroll-reveal" id="surprise">
+            <div class="secret-card glass-panel" id="pin-card">
+                <h2 class="section-title">There is one more surprise... 👀🎁</h2>
+                <p class="pin-instruction">Enter the 4-digit secret PIN to unlock</p>
+                
+                <div class="pin-dots">
+                    <div class="pin-dot"></div>
+                    <div class="pin-dot"></div>
+                    <div class="pin-dot"></div>
+                    <div class="pin-dot"></div>
+                </div>
+
+                <div class="pin-keypad">
+                    <button class="key-btn" data-key="1">1</button>
+                    <button class="key-btn" data-key="2">2</button>
+                    <button class="key-btn" data-key="3">3</button>
+                    <button class="key-btn" data-key="4">4</button>
+                    <button class="key-btn" data-key="5">5</button>
+                    <button class="key-btn" data-key="6">6</button>
+                    <button class="key-btn" data-key="7">7</button>
+                    <button class="key-btn" data-key="8">8</button>
+                    <button class="key-btn" data-key="9">9</button>
+                    <button class="key-btn clear-key" data-key="C">C</button>
+                    <button class="key-btn" data-key="0">0</button>
+                    <button class="key-btn delete-key" data-key="DEL">⌫</button>
+                </div>
+                <p id="pin-error" class="pin-error-msg hidden">Incorrect PIN! Try again 🥹</p>
+            </div>
+
+            <!-- UNLOCKED SURPRISE CONTENT -->
+            <div id="unlocked-content" class="unlocked-card glass-panel hidden">
+                <h2 class="surprise-heading">Okay... one last surprise 🥹🎀</h2>
+                <p class="surprise-subtext">If you reached this far, then congratulations... you unlocked the most special part of this little website. 🔐🩷</p>
+                
+                <div class="surprise-body">
+                    <p>I don't really know how to write big emotional paragraphs 😭🤌, but there are some things that genuinely deserve to be said.</p>
+                    <p>You both are not just my cousins. Somewhere between all those childhood memories, random fights, stupid jokes, lockdown madness, teasing each other and spending countless moments together... you became my sisters by heart. 🫶🥹</p>
+                    <p>We have literally grown up together. From those little-kid days to seeing Vishuu Di in CS and Sakshu Di in 12th, it's honestly crazy how quickly time has passed. 😭🤌</p>
+                    <p>Sometimes I really wish we could go back to those childhood days for just one day... sit together, laugh at the dumbest things, create random memories and enjoy everything without worrying about growing up. 🥹🩷</p>
+                    <p>And honestly, lockdown was probably one of the weirdest but best chapters for us. 😂 We somehow managed to turn that boring time into memories that I still remember and miss.</p>
+                    <p>You guys have always been so supportive and understanding. There are things I feel like I can share with you without thinking twice, and that's something I genuinely value. 🫶</p>
+                    <p>And yes... about that block wali baat... I'm sorry 😭😷 Galti sabse hoti hai yaar, hehe. I'm your pyaari si behen after all. 🤭🥰</p>
+                    <p>I may not always know how to express what I feel, but whenever I spend time with you guys, I realize how lucky I am to have these memories. Words honestly aren't enough to explain how special this bond is. 😭🤌🩷</p>
+                    <p>I just hope that as we grow older, we don't become strangers because of studies, careers, responsibilities or life.</p>
+                    <ul class="promise-list">
+                        <li>I hope we still call each other randomly.</li>
+                        <li>I hope we still make fun of each other.</li>
+                        <li>I hope we still have those stupid conversations that make absolutely no sense. 😂</li>
+                        <li>I hope we still take hundreds of pictures together.</li>
+                        <li>I hope someday we actually travel together, explore new places, create crazy memories and laugh about all the things we did when we were younger. ✈️🌍🫶</li>
+                    </ul>
+                    <p>And most importantly... <strong>I hope we always make Nani proud. 🥹🤞🩷</strong></p>
+                    <p>No matter where life takes us, I hope this little bond stays the same. Because childhood may be over... but our memories don't have to be. 🫶</p>
+                    <p>Years from now, when we're all busy with our own lives, I hope we can look back at these photos and say:<br><em>"Brooo... remember when we were like this? 😭😂"</em><br>And then laugh all over again.</p>
+                    <p>So here's my tiny promise:<br>No matter how much we grow, I'll always be that annoying little sibling who comes back to disturb you both. 🤭😂</p>
+                    <div class="thank-you-block">
+                        <p>Thank you for being part of my childhood.</p>
+                        <p>Thank you for all the laughs.</p>
+                        <p>Thank you for all the support.</p>
+                        <p>Thank you for understanding me.</p>
+                        <p>And thank you for simply being YOU. 🩷</p>
+                    </div>
+                    <div class="signature-block">
+                        <h3>Vishun Di × Sakshu Di</h3>
+                        <p>Cousins by relation.</p>
+                        <p>Sisters by heart.</p>
+                        <p>Best friends by memories.</p>
+                        <p>Family forever. 🫶🎀</p>
+                        <p class="final-note">And if you ever forget how much you mean to me... just come back to this little website. 🥹🩷</p>
+                        <p class="final-wish">Happy Raksha Bandhan, my bestest sisters! 🎀🪷<br>Love youu guyss always 😘🫶😭🩷</p>
+                        <p class="author-tag">— Your annoying but pyaari si behen 🤭</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. FINAL CLOSING SECTION -->
+        <footer class="section final-section">
+            <div class="closing-card glass-panel scroll-reveal">
+                <div class="glowing-rakhi">🪷</div>
+                <h2>To Vishun Di & Sakshu Di 🩷</h2>
+                <p class="closing-msg">Thank you for being a part of my childhood, my memories and my life.</p>
+                <p class="closing-love">Love youu guyss always 😘🫶</p>
+                <div class="footer-credit">
+                    <p>Made with ❤️ for Vishun & Sakshu</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
